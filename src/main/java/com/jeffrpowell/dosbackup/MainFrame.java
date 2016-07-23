@@ -67,19 +67,25 @@ public class MainFrame extends javax.swing.JFrame{
         jPanel4 = new javax.swing.JPanel();
         btnBackupSources = new javax.swing.JButton();
         btnRemoveSource = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jScrollPane1 = new javax.swing.JScrollPane();
         listSources = new javax.swing.JList<>();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jPanel2 = new javax.swing.JPanel();
         btnBackupDestination = new javax.swing.JButton();
         lblBackupDestination = new javax.swing.JLabel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jPanel3 = new javax.swing.JPanel();
         btnInitialBackup = new javax.swing.JButton();
         btnDeltaBackup = new javax.swing.JButton();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
 
         btnBackupSources.setText("Add Backup Source");
         btnBackupSources.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +93,7 @@ public class MainFrame extends javax.swing.JFrame{
                 btnBackupSourcesActionPerformed(evt);
             }
         });
+        jPanel4.add(btnBackupSources);
 
         btnRemoveSource.setText("Remove Selected Source");
         btnRemoveSource.addActionListener(new java.awt.event.ActionListener() {
@@ -94,46 +101,20 @@ public class MainFrame extends javax.swing.JFrame{
                 btnRemoveSourceActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 889, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btnBackupSources)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btnRemoveSource)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(btnBackupSources)
-                    .addContainerGap(100, Short.MAX_VALUE)))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(btnRemoveSource)
-                    .addContainerGap(100, Short.MAX_VALUE)))
-        );
+        jPanel4.add(btnRemoveSource);
 
         jPanel1.add(jPanel4);
+        jPanel1.add(filler1);
 
         listSources.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listSources);
 
         jPanel1.add(jScrollPane1);
+        jPanel1.add(filler2);
 
         getContentPane().add(jPanel1);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
 
         btnBackupDestination.setText("Set Backup Destination");
         btnBackupDestination.addActionListener(new java.awt.event.ActionListener() {
@@ -141,39 +122,13 @@ public class MainFrame extends javax.swing.JFrame{
                 btnBackupDestinationActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 889, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btnBackupDestination)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(lblBackupDestination)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 115, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btnBackupDestination)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(lblBackupDestination)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jPanel2.add(btnBackupDestination);
+        jPanel2.add(lblBackupDestination);
 
         getContentPane().add(jPanel2);
+        getContentPane().add(filler3);
+
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.X_AXIS));
 
         btnInitialBackup.setText("Perform Initial Backup");
         btnInitialBackup.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +136,7 @@ public class MainFrame extends javax.swing.JFrame{
                 btnInitialBackupActionPerformed(evt);
             }
         });
+        jPanel3.add(btnInitialBackup);
 
         btnDeltaBackup.setText("Backup Just New Changes");
         btnDeltaBackup.addActionListener(new java.awt.event.ActionListener() {
@@ -188,39 +144,10 @@ public class MainFrame extends javax.swing.JFrame{
                 btnDeltaBackupActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 889, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btnInitialBackup)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btnDeltaBackup)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 119, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btnInitialBackup)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btnDeltaBackup)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jPanel3.add(btnDeltaBackup);
 
         getContentPane().add(jPanel3);
+        getContentPane().add(filler4);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -310,6 +237,10 @@ public class MainFrame extends javax.swing.JFrame{
     private javax.swing.JButton btnDeltaBackup;
     private javax.swing.JButton btnInitialBackup;
     private javax.swing.JButton btnRemoveSource;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
