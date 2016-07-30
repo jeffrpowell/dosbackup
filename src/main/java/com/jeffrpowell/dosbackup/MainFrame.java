@@ -69,9 +69,10 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	}
 	
 	@Override
-	public void updateProgress(int moved, int found){
+	public void updateProgress(int moved, int found, int directoriesLeft){
 		lblFilesBackedUp.setText(Integer.toString(moved));
 		lblFilesFound.setText(Integer.toString(found));
+		lblDirectoriesLeft.setText(Integer.toString(directoriesLeft));
 	}
 
 	@Override
@@ -111,6 +112,9 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblFilesFound = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lblDirectoriesLeft = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jPanel7 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
@@ -204,6 +208,16 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel6.add(lblFilesFound);
 
         getContentPane().add(jPanel6);
+
+        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel3.setText("Folders Left:");
+        jPanel8.add(jLabel3);
+
+        lblDirectoriesLeft.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel8.add(lblDirectoriesLeft);
+
+        getContentPane().add(jPanel8);
         getContentPane().add(filler5);
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.X_AXIS));
@@ -221,6 +235,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         getContentPane().add(filler6);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackupSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupSourcesActionPerformed
@@ -324,6 +339,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
     private javax.swing.Box.Filler filler6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -331,8 +347,10 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lblBackupDestination;
+    private javax.swing.JLabel lblDirectoriesLeft;
     private javax.swing.JLabel lblFilesBackedUp;
     private javax.swing.JLabel lblFilesFound;
     public javax.swing.JList<String> listSources;

@@ -73,11 +73,14 @@ public class WorkerThread extends SwingWorker<Void, Progress> {
 		}
 		int found = 0;
 		int moved = 0;
+		int directoriesLeft = paths.size();
 		for (Progress progress : progressMap.values()){
 			found += progress.getFilesFound();
 			moved += progress.getFilesMoved();
+			directoriesLeft += progress.getDirectoriesFound();
 		}
-		observer.updateProgress(moved, found);
+		directoriesLeft -= progressMap.size();
+		observer.updateProgress(moved, found, directoriesLeft);
 		if (isCancelled())
 		{
 			forkJoinPool.shutdownNow();
@@ -118,11 +121,11 @@ public class WorkerThread extends SwingWorker<Void, Progress> {
 						directories.add(new BackupForkThread(parentThread, child, destinationRoot, backupAllFiles));
 					}
 				}
+				Progress progress = new Progress(root, 0, files.size(), directories.size());
+				parentThread.publish(progress);
 				if (!directories.isEmpty()){
 					invokeAll(directories);
 				}
-				Progress progress = new Progress(root, 0, files.size());
-				parentThread.publish(progress);
 				for (Path child : files){
 					DosFileAttributes attr = Files.readAttributes(child, DosFileAttributes.class, LinkOption.NOFOLLOW_LINKS);
 					if (backupAllFiles || attr.isArchive()){

@@ -6,11 +6,13 @@ public class Progress implements Comparable<Progress>{
 	private final Path directory;
 	private final int filesMoved;
 	private final int filesFound;
+	private final int directoriesFound;
 
-	public Progress(Path directory, int filesMoved, int filesFound){
+	public Progress(Path directory, int filesMoved, int filesFound, int directoriesFound){
 		this.directory = directory;
 		this.filesMoved = filesMoved;
 		this.filesFound = filesFound;
+		this.directoriesFound = directoriesFound;
 	}
 
 	public Path getDirectory(){
@@ -25,8 +27,12 @@ public class Progress implements Comparable<Progress>{
 		return filesFound;
 	}
 	
+	public int getDirectoriesFound(){
+		return directoriesFound;
+	}
+	
 	public Progress incrementFilesMoved(){
-		return new Progress(directory, filesMoved+1, filesFound);
+		return new Progress(directory, filesMoved+1, filesFound, directoriesFound);
 	}
 
 	@Override
