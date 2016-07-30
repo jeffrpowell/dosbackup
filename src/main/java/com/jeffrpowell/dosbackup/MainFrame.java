@@ -1,13 +1,17 @@
 package com.jeffrpowell.dosbackup;
 
+import java.awt.event.ActionEvent;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.Timer;
 
 public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 
@@ -16,6 +20,8 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	private final Executor executor;
 	private Path backupDestination;
 	private WorkerThread currentThread;
+	private final Timer timer;
+	private LocalTime time;
 	/**
 	 * Creates new form MainFrame
 	 */
@@ -26,6 +32,11 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 		this.executor = Executors.newSingleThreadExecutor();
 		this.currentThread = null;
 		initComponents();
+		this.time = LocalTime.MIDNIGHT;
+		this.timer = new Timer(1000, (ActionEvent e) -> {
+			time = time.plusSeconds(1);
+			lblElapsedTime.setText(time.format(DateTimeFormatter.ISO_LOCAL_TIME));
+		});
 	}
 
 	private void updateSourceList(){
@@ -79,6 +90,14 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	public void done(){
 		setButtonsEnabled(true);
 		currentThread = null;
+		timer.stop();
+	}
+	
+	private void restartTimer()
+	{
+		time = LocalTime.MIDNIGHT;
+		lblElapsedTime.setText(time.format(DateTimeFormatter.ISO_LOCAL_TIME));
+		timer.restart();
 	}
 
 	
@@ -115,6 +134,9 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblDirectoriesLeft = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        lblElapsedTime = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jPanel7 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
@@ -218,6 +240,16 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel8.add(lblDirectoriesLeft);
 
         getContentPane().add(jPanel8);
+
+        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel4.setText("Elapsed Time: ");
+        jPanel9.add(jLabel4);
+
+        lblElapsedTime.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel9.add(lblElapsedTime);
+
+        getContentPane().add(jPanel9);
         getContentPane().add(filler5);
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.X_AXIS));
@@ -259,6 +291,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 			currentThread = new WorkerThread(backupSources, backupDestination, true, this);
 			setButtonsEnabled(false);
 			executor.execute(currentThread);
+			restartTimer();
 		}
     }//GEN-LAST:event_btnInitialBackupActionPerformed
 
@@ -267,6 +300,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 			currentThread = new WorkerThread(backupSources, backupDestination, false, this);
 			setButtonsEnabled(false);
 			executor.execute(currentThread);
+			restartTimer();
 		}
     }//GEN-LAST:event_btnDeltaBackupActionPerformed
 
@@ -282,6 +316,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         if (currentThread != null)
 		{
 			currentThread.cancel(true);
+			timer.stop();
 		}
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -340,6 +375,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -348,9 +384,11 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lblBackupDestination;
     private javax.swing.JLabel lblDirectoriesLeft;
+    private javax.swing.JLabel lblElapsedTime;
     private javax.swing.JLabel lblFilesBackedUp;
     private javax.swing.JLabel lblFilesFound;
     public javax.swing.JList<String> listSources;
