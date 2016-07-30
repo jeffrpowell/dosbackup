@@ -214,6 +214,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.X_AXIS));
 
         jLabel1.setText("Files Moved: ");
+        jLabel1.setToolTipText("# of files either skipped or copied to destination");
         jPanel5.add(jLabel1);
 
         lblFilesBackedUp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -224,6 +225,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.X_AXIS));
 
         jLabel2.setText("Files Found: ");
+        jLabel2.setToolTipText("# of files discovered in backup sources");
         jPanel6.add(jLabel2);
 
         lblFilesFound.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -234,6 +236,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.X_AXIS));
 
         jLabel3.setText("Folders Left:");
+        jLabel3.setToolTipText("# of folders left to explore. This may lead to other folders, which increases this number.");
         jPanel8.add(jLabel3);
 
         lblDirectoriesLeft.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

@@ -196,6 +196,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Files Moved: "/>
+            <Property name="toolTipText" type="java.lang.String" value="# of files either skipped or copied to destination"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblFilesBackedUp">
@@ -216,6 +217,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Files Found: "/>
+            <Property name="toolTipText" type="java.lang.String" value="# of files discovered in backup sources"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblFilesFound">
@@ -236,6 +238,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Folders Left:"/>
+            <Property name="toolTipText" type="java.lang.String" value="# of folders left to explore. This may lead to other folders, which increases this number."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDirectoriesLeft">
