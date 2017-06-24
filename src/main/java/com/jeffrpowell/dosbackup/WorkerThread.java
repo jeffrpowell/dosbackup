@@ -14,15 +14,17 @@ public class WorkerThread extends SwingWorker<Void, Progress>
     private final Set<Path> paths;
     private final Path destination;
     private final boolean backupAllFiles;
+    private final boolean deleteDestinationFiles;
     private final BackupObserver observer;
     private final ForkJoinPool forkJoinPool;
     private final Map<Path, Progress> progressMap;
 
-    public WorkerThread(Set<Path> paths, Path destination, boolean backupAllFiles, BackupObserver observer)
+    public WorkerThread(Set<Path> paths, Path destination, boolean backupAllFiles, boolean deleteDestinationFiles, BackupObserver observer)
     {
 	this.paths = paths;
 	this.destination = destination;
 	this.backupAllFiles = backupAllFiles;
+	this.deleteDestinationFiles = deleteDestinationFiles;
 	this.observer = observer;
 	this.forkJoinPool = new ForkJoinPool();
 	this.progressMap = new HashMap<>();
@@ -39,7 +41,7 @@ public class WorkerThread extends SwingWorker<Void, Progress>
 		break;
 	    } else
 	    {
-		BackupForkThread thread = new BackupForkThread(this, path, destination, backupAllFiles);
+		BackupForkThread thread = new BackupForkThread(this, path, destination, backupAllFiles, deleteDestinationFiles);
 		forkJoinPool.invoke(thread);
 	    }
 	}

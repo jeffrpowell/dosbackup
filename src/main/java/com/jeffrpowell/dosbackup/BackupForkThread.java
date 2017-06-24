@@ -22,13 +22,15 @@ public class BackupForkThread extends RecursiveAction
     private final Path root;
     private final Path destinationRoot;
     private final boolean backupAllFiles;
+    private final boolean deleteDestinationFiles;
 
-    public BackupForkThread(WorkerThread parentThread, Path root, Path destinationRoot, boolean backupAllFiles)
+    public BackupForkThread(WorkerThread parentThread, Path root, Path destinationRoot, boolean backupAllFiles, boolean deleteDestinationFiles)
     {
 	this.parentThread = parentThread;
 	this.root = root;
 	this.destinationRoot = destinationRoot;
 	this.backupAllFiles = backupAllFiles;
+	this.deleteDestinationFiles = deleteDestinationFiles;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class BackupForkThread extends RecursiveAction
 		} else if (Files.isDirectory(child, LinkOption.NOFOLLOW_LINKS))
 		{
 		    destinationDirectories.add(makeDestinationPath(child));
-		    directories.add(new BackupForkThread(parentThread, child, destinationRoot, backupAllFiles));
+		    directories.add(new BackupForkThread(parentThread, child, destinationRoot, backupAllFiles, deleteDestinationFiles));
 		}
 	    }
 	    Progress progress = new Progress(root, 0, files.size(), directories.size());
@@ -68,21 +70,24 @@ public class BackupForkThread extends RecursiveAction
 		progress = progress.incrementFilesMoved();
 		parentThread.publishProgress(progress);
 	    }
-	    try (DirectoryStream<Path> destinationDs = Files.newDirectoryStream(makeDestinationPath(root)))
+	    if (deleteDestinationFiles)
 	    {
-		for (Path child : destinationDs)
+		try (DirectoryStream<Path> destinationDs = Files.newDirectoryStream(makeDestinationPath(root)))
 		{
-		    if (Files.isRegularFile(child) && !destinationFiles.contains(child))
+		    for (Path child : destinationDs)
 		    {
-			Files.delete(child);
-		    } else if (Files.isDirectory(child) && !destinationDirectories.contains(child))
-		    {
-			directories.add(new DeleteForkThread(child));
+			if (Files.isRegularFile(child) && !destinationFiles.contains(child))
+			{
+			    Files.delete(child);
+			} else if (Files.isDirectory(child) && !destinationDirectories.contains(child))
+			{
+			    directories.add(new DeleteForkThread(child));
+			}
 		    }
+		} catch (IOException e)
+		{
+		    System.err.println("Exception occurred at " + root + " while deleting destination files. " + e.getMessage());
 		}
-	    } catch (IOException e)
-	    {
-		System.err.println("Exception occurred at " + root + " while deleting destination files. " + e.getMessage());
 	    }
 	    if (!directories.isEmpty())
 	    {
