@@ -71,11 +71,10 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	
 	private void setButtonsEnabled(boolean enabled)
 	{
-		btnBackupDestination.setEnabled(enabled);
 		btnBackupSources.setEnabled(enabled);
-		btnDeltaBackup.setEnabled(enabled);
-		btnInitialBackup.setEnabled(enabled);
 		btnRemoveSource.setEnabled(enabled);
+		btnBackupDestination.setEnabled(enabled);
+		btnBackup.setEnabled(enabled);
 		btnCancel.setEnabled(!enabled);
 	}
 	
@@ -107,8 +106,10 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	 */
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
+        ignoreAuditFlag = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnBackupSources = new javax.swing.JButton();
@@ -119,12 +120,21 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jPanel2 = new javax.swing.JPanel();
         btnBackupDestination = new javax.swing.JButton();
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
         lblBackupDestination = new javax.swing.JLabel();
+        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
-        jPanel3 = new javax.swing.JPanel();
-        btnInitialBackup = new javax.swing.JButton();
-        btnDeltaBackup = new javax.swing.JButton();
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        jPanel10 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        rdoBackupAll = new javax.swing.JRadioButton();
+        rdoBackupDelta = new javax.swing.JRadioButton();
+        jPanel13 = new javax.swing.JPanel();
+        chkDelete = new javax.swing.JCheckBox();
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        btnBackup = new javax.swing.JButton();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblFilesBackedUp = new javax.swing.JLabel();
@@ -150,16 +160,20 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
 
         btnBackupSources.setText("Add Backup Source");
-        btnBackupSources.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBackupSources.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBackupSourcesActionPerformed(evt);
             }
         });
         jPanel4.add(btnBackupSources);
 
         btnRemoveSource.setText("Remove Selected Source");
-        btnRemoveSource.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRemoveSource.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRemoveSourceActionPerformed(evt);
             }
         });
@@ -176,40 +190,70 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 
         getContentPane().add(jPanel1);
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         btnBackupDestination.setText("Set Backup Destination");
-        btnBackupDestination.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBackupDestination.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBackupDestinationActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBackupDestination);
-        jPanel2.add(lblBackupDestination);
+        jPanel2.add(btnBackupDestination, java.awt.BorderLayout.NORTH);
+        jPanel2.add(filler7, java.awt.BorderLayout.WEST);
+
+        lblBackupDestination.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblBackupDestination, java.awt.BorderLayout.CENTER);
+        jPanel2.add(filler8, java.awt.BorderLayout.EAST);
 
         getContentPane().add(jPanel2);
         getContentPane().add(filler3);
 
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.X_AXIS));
+        jPanel10.setLayout(new java.awt.BorderLayout());
 
-        btnInitialBackup.setText("Perform Initial Backup");
-        btnInitialBackup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInitialBackupActionPerformed(evt);
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Backup Options");
+        jPanel10.add(jLabel5, java.awt.BorderLayout.NORTH);
+
+        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.X_AXIS));
+
+        ignoreAuditFlag.add(rdoBackupAll);
+        rdoBackupAll.setText("Copy all files");
+        jPanel11.add(rdoBackupAll);
+
+        ignoreAuditFlag.add(rdoBackupDelta);
+        rdoBackupDelta.setSelected(true);
+        rdoBackupDelta.setText("Only copy new/changed files");
+        jPanel11.add(rdoBackupDelta);
+
+        jPanel12.add(jPanel11);
+
+        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.X_AXIS));
+
+        chkDelete.setText("Delete destination files if missing from source");
+        jPanel13.add(chkDelete);
+
+        jPanel12.add(jPanel13);
+        jPanel12.add(filler10);
+
+        jPanel10.add(jPanel12, java.awt.BorderLayout.CENTER);
+
+        btnBackup.setText("Start Backup");
+        btnBackup.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnBackupActionPerformed(evt);
             }
         });
-        jPanel3.add(btnInitialBackup);
+        jPanel10.add(btnBackup, java.awt.BorderLayout.SOUTH);
 
-        btnDeltaBackup.setText("Backup Just New Changes");
-        btnDeltaBackup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeltaBackupActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnDeltaBackup);
-
-        getContentPane().add(jPanel3);
-        getContentPane().add(filler4);
+        getContentPane().add(jPanel10);
+        getContentPane().add(filler9);
 
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.X_AXIS));
 
@@ -259,8 +303,10 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 
         btnCancel.setText("Stop Everything!");
         btnCancel.setEnabled(false);
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCancelActionPerformed(evt);
             }
         });
@@ -289,24 +335,6 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 		}
     }//GEN-LAST:event_btnBackupDestinationActionPerformed
 
-    private void btnInitialBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitialBackupActionPerformed
-		if (backupDestination != null){
-			currentThread = new WorkerThread(backupSources, backupDestination, true, this);
-			setButtonsEnabled(false);
-			executor.execute(currentThread);
-			restartTimer();
-		}
-    }//GEN-LAST:event_btnInitialBackupActionPerformed
-
-    private void btnDeltaBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeltaBackupActionPerformed
-        if (backupDestination != null){
-			currentThread = new WorkerThread(backupSources, backupDestination, false, this);
-			setButtonsEnabled(false);
-			executor.execute(currentThread);
-			restartTimer();
-		}
-    }//GEN-LAST:event_btnDeltaBackupActionPerformed
-
     private void btnRemoveSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveSourceActionPerformed
         String source = listSources.getSelectedValue();
 		if (source != null){
@@ -322,6 +350,19 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 			timer.stop();
 		}
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBackupActionPerformed
+    {//GEN-HEADEREND:event_btnBackupActionPerformed
+        if (backupDestination != null) {
+	    boolean backupAllFiles = rdoBackupAll.isSelected() && !rdoBackupDelta.isSelected();
+	    boolean deleteDestinationFiles = chkDelete.isSelected();
+	    currentThread = new WorkerThread(backupSources, backupDestination, backupAllFiles, deleteDestinationFiles, this);
+	    setButtonsEnabled(false);
+	    executor.execute(currentThread);
+	    restartTimer();
+	}
+	
+    }//GEN-LAST:event_btnBackupActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -363,25 +404,33 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnBackupDestination;
     private javax.swing.JButton btnBackupSources;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnDeltaBackup;
-    private javax.swing.JButton btnInitialBackup;
     private javax.swing.JButton btnRemoveSource;
+    private javax.swing.JCheckBox chkDelete;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
+    private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
+    private javax.swing.ButtonGroup ignoreAuditFlag;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -395,6 +444,8 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
     private javax.swing.JLabel lblFilesBackedUp;
     private javax.swing.JLabel lblFilesFound;
     public javax.swing.JList<String> listSources;
+    private javax.swing.JRadioButton rdoBackupAll;
+    private javax.swing.JRadioButton rdoBackupDelta;
     // End of variables declaration//GEN-END:variables
 
 }
