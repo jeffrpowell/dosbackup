@@ -1,14 +1,19 @@
 package com.jeffrpowell.dosbackup;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
@@ -86,10 +91,31 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 	}
 
 	@Override
-	public void done(){
+	public void done(boolean wasCancelled, List<String> failedFiles){
 		setButtonsEnabled(true);
 		currentThread = null;
 		timer.stop();
+		if (!wasCancelled) {
+			try
+			{
+				Files.writeString(backupDestination.resolve(LocalDate.now()+".txt"), writeOutputLog(failedFiles));
+			} catch (IOException ex)
+			{
+				ex.printStackTrace(System.err);
+			}
+		}
+	}
+	
+	private String writeOutputLog(List<String> failedFiles) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(backupSources.stream().map(Path::toString).collect(Collectors.joining("\n")));
+		builder.append("\n");
+		builder.append(time.format(DateTimeFormatter.ISO_LOCAL_TIME)).append(" seconds elapsed");
+		if (!failedFiles.isEmpty()) {
+			builder.append("\n\nThese files failed to copy over:");
+			builder.append(failedFiles.stream().collect(Collectors.joining("\n")));
+		}
+		return builder.toString();
 	}
 	
 	private void restartTimer()
