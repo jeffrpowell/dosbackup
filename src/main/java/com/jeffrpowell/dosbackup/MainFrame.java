@@ -112,7 +112,7 @@ public class MainFrame extends javax.swing.JFrame implements BackupObserver{
 		builder.append("\n");
 		builder.append(time.format(DateTimeFormatter.ISO_LOCAL_TIME)).append(" seconds elapsed");
 		if (!failedFiles.isEmpty()) {
-			builder.append("\n\nThese files failed to copy over:");
+			builder.append("\n\nThese files failed to copy over:\n");
 			builder.append(failedFiles.stream().collect(Collectors.joining("\n")));
 		}
 		return builder.toString();
